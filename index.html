@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Simple Shop Demo — Login / Signup / Home</title>
+  <!-- Tailwind (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="description" content="Minimal online shop demo: login, signup, home (client-side only)" />
+</head>
+<body class="bg-gray-50 text-gray-900 antialiased">
+  <div id="app" class="min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="border-b bg-white">
+      <div class="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
+        <a href="#home" class="font-semibold tracking-wide">🛍️ Simple Shop</a>
+        <nav class="flex items-center gap-4">
+          <a href="#home" class="text-sm hover:underline">Home</a>
+          <a href="#login" class="text-sm hover:underline" id="nav-login">Login</a>
+          <a href="#signup" class="text-sm hover:underline" id="nav-signup">Sign up</a>
+          <button id="nav-logout" class="hidden text-sm px-3 py-1 rounded-lg border hover:bg-gray-100">Logout</button>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main -->
+    <main class="flex-1">
+      <section id="page-home" class="hidden">
+        <div class="max-w-5xl mx-auto px-4 py-12">
+          <div class="bg-white border rounded-2xl p-8 shadow-sm">
+            <h1 class="text-2xl font-bold mb-2">Welcome<span id="home-username"></span> 👋</h1>
+            <p class="text-gray-600">This is your Home page. (In a real project, your product grid would go here.)</p>
+            <div class="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <!-- Demo product cards -->
+              <div class="border rounded-xl p-4">
+                <div class="h-28 bg-gray-100 rounded mb-3"></div>
+                <div class="font-medium">Demo Product A</div>
+                <div class="text-sm text-gray-500">₹499</div>
+              </div>
+              <div class="border rounded-xl p-4">
+                <div class="h-28 bg-gray-100 rounded mb-3"></div>
+                <div class="font-medium">Demo Product B</div>
+                <div class="text-sm text-gray-500">₹899</div>
+              </div>
+              <div class="border rounded-xl p-4">
+                <div class="h-28 bg-gray-100 rounded mb-3"></div>
+                <div class="font-medium">Demo Product C</div>
+                <div class="text-sm text-gray-500">₹1,299</div>
+              </div>
+            </div>
+            <div class="mt-8">
+              <a href="#login" class="text-blue-600 hover:underline" id="home-cta">Login to start</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="page-login" class="hidden">
+        <div class="max-w-md mx-auto px-4 py-12">
+          <div class="bg-white border rounded-2xl p-8 shadow-sm">
+            <h2 class="text-xl font-semibold mb-6">Login</h2>
+            <form id="login-form" class="grid gap-4" novalidate>
+              <div>
+                <label class="block text-sm mb-1" for="login-email">Email</label>
+                <input id="login-email" type="email" required autocomplete="email"
+                  class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring" />
+                <p id="login-email-err" class="hidden text-sm text-red-600 mt-1">Please enter a valid email.</p>
+              </div>
+              <div>
+                <label class="block text-sm mb-1" for="login-password">Password</label>
+                <input id="login-password" type="password" required minlength="6" autocomplete="current-password"
+                  class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring" />
+                <p id="login-pass-err" class="hidden text-sm text-red-600 mt-1">Password must be at least 6 characters.</p>
+              </div>
+              <button class="mt-2 bg-black text-white rounded-lg px-4 py-2 hover:opacity-90">Sign in</button>
+              <p class="text-sm text-gray-600">No account? <a href="#signup" class="text-blue-600 hover:underline">Create one</a>.</p>
+              <p id="login-error" class="hidden text-sm text-red-600"></p>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <section id="page-signup" class="hidden">
+        <div class="max-w-md mx-auto px-4 py-12">
+          <div class="bg-white border rounded-2xl p-8 shadow-sm">
+            <h2 class="text-xl font-semibold mb-6">Create account</h2>
+            <form id="signup-form" class="grid gap-4" novalidate>
+              <div>
+                <label class="block text-sm mb-1" for="signup-name">Name</label>
+                <input id="signup-name" type="text" required minlength="2" autocomplete="name"
+                  class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring" />
+                <p id="signup-name-err" class="hidden text-sm text-red-600 mt-1">Please enter your name (2+ chars).</p>
+              </div>
+              <div>
+                <label class="block text-sm mb-1" for="signup-email">Email</label>
+                <input id="signup-email" type="email" required autocomplete="email"
+                  class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring" />
+                <p id="signup-email-err" class="hidden text-sm text-red-600 mt-1">Please enter a valid email.</p>
+              </div>
+              <div>
+                <label class="block text-sm mb-1" for="signup-password">Password</label>
+                <input id="signup-password" type="password" required minlength="6" autocomplete="new-password"
+                  class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring" />
+                <p id="signup-pass-err" class="hidden text-sm text-red-600 mt-1">Use 6+ characters.</p>
+              </div>
+              <button class="mt-2 bg-black text-white rounded-lg px-4 py-2 hover:opacity-90">Create account</button>
+              <p class="text-sm text-gray-600">Already have an account? <a href="#login" class="text-blue-600 hover:underline">Sign in</a>.</p>
+              <p id="signup-error" class="hidden text-sm text-red-600"></p>
+              <p id="signup-success" class="hidden text-sm text-green-700"></p>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t bg-white">
+      <div class="max-w-5xl mx-auto px-4 py-6 text-sm text-gray-600">
+        Demo only. Data stored locally in your browser. Customize freely.
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // --- Simple Router (hash-based): #home, #login, #signup
+    const pages = {
+      home: document.getElementById('page-home'),
+      login: document.getElementById('page-login'),
+      signup: document.getElementById('page-signup'),
+    };
+    const navLogin = document.getElementById('nav-login');
+    const navSignup = document.getElementById('nav-signup');
+    const navLogout = document.getElementById('nav-logout');
+    const homeUsername = document.getElementById('home-username');
+    const homeCta = document.getElementById('home-cta');
+
+    function showPage(name) {
+      Object.values(pages).forEach(el => el.classList.add('hidden'));
+      pages[name]?.classList.remove('hidden');
+      updateNav();
+      if (name === 'home') {
+        const user = getCurrentUser();
+        homeUsername.textContent = user ? `, ${user.name}` : '';
+        homeCta.classList.toggle('hidden', !!user);
+      }
+    }
+
+    window.addEventListener('hashchange', () => {
+      const route = location.hash.replace('#', '') || 'home';
+      if (!pages[route]) location.hash = '#home';
+      else showPage(route);
+    });
+
+    // --- Local "Auth" (DEMO ONLY) ---
+    const STORAGE_KEYS = {
+      USERS: 'demo_users', // array of { email, name, passHash }
+      SESSION: 'demo_session', // { email }
+    };
+
+    async function sha256(text) {
+      const enc = new TextEncoder();
+      const data = enc.encode(text);
+      const buf = await crypto.subtle.digest('SHA-256', data);
+      return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    function loadUsers() {
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEYS.USERS)) || []; }
+      catch { return []; }
+    }
+    function saveUsers(users) {
+      localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(users));
+    }
+    function setSession(email) {
+      localStorage.setItem(STORAGE_KEYS.SESSION, JSON.stringify({ email }));
+    }
+    function clearSession() {
+      localStorage.removeItem(STORAGE_KEYS.SESSION);
+    }
+    function getCurrentUser() {
+      try {
+        const s = JSON.parse(localStorage.getItem(STORAGE_KEYS.SESSION));
+        if (!s?.email) return null;
+        const u = loadUsers().find(x => x.email === s.email);
+        return u ? { email: u.email, name: u.name } : null;
+      } catch { return null; }
+    }
+
+    // --- Signup form
+    const suForm = document.getElementById('signup-form');
+    suForm?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('signup-name').value.trim();
+      const email = document.getElementById('signup-email').value.trim().toLowerCase();
+      const password = document.getElementById('signup-password').value;
+
+      // simple validation
+      const valid = !!name && name.length >= 2 && /\S+@\S+\.\S+/.test(email) && password.length >= 6;
+      document.getElementById('signup-name-err').classList.toggle('hidden', name.length >= 2);
+      document.getElementById('signup-email-err').classList.toggle('hidden', /\S+@\S+\.\S+/.test(email));
+      document.getElementById('signup-pass-err').classList.toggle('hidden', password.length >= 6);
+      if (!valid) return;
+
+      const users = loadUsers();
+      if (users.some(u => u.email === email)) {
+        setMsg('signup-error', 'An account with this email already exists.');
+        return;
+      }
+      const passHash = await sha256(password);
+      users.push({ email, name, passHash });
+      saveUsers(users);
+      setMsg('signup-success', 'Account created! You can now log in.');
+      setTimeout(() => { location.hash = '#login'; }, 800);
+    });
+
+    // --- Login form
+    const liForm = document.getElementById('login-form');
+    liForm?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('login-email').value.trim().toLowerCase();
+      const password = document.getElementById('login-password').value;
+
+      const emailOk = /\S+@\S+\.\S+/.test(email);
+      const passOk = password.length >= 6;
+      document.getElementById('login-email-err').classList.toggle('hidden', emailOk);
+      document.getElementById('login-pass-err').classList.toggle('hidden', passOk);
+      if (!emailOk || !passOk) return;
+
+      const users = loadUsers();
+      const user = users.find(u => u.email === email);
+      if (!user) return setMsg('login-error', 'No account found. Please sign up.');
+
+      const passHash = await sha256(password);
+      if (user.passHash !== passHash) return setMsg('login-error', 'Incorrect password.');
+
+      setSession(email);
+      location.hash = '#home';
+    });
+
+    // --- Logout
+    navLogout.addEventListener('click', () => {
+      clearSession();
+      updateNav();
+      location.hash = '#home';
+    });
+
+    // --- Helpers
+    function setMsg(id, text) {
+      const el = document.getElementById(id);
+      el.textContent = text;
+      el.classList.remove('hidden');
+      setTimeout(() => el.classList.add('hidden'), 3000);
+    }
+
+    function updateNav() {
+      const authed = !!getCurrentUser();
+      navLogin.classList.toggle('hidden', authed);
+      navSignup.classList.toggle('hidden', authed);
+      navLogout.classList.toggle('hidden', !authed);
+    }
+
+    // Init
+    if (!location.hash) location.hash = '#home';
+    showPage(location.hash.replace('#', ''));
+
+  </script>
+</body>
+</html>
