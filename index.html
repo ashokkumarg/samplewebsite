@@ -17,9 +17,9 @@
         <a href="#home" class="font-semibold tracking-wide">🛍️ Simple Shop</a>
         <nav class="flex items-center gap-4">
           <a href="#home" class="text-sm hover:underline">Home</a>
-          <a href="#login" class="text-sm hover:underline" id="nav-login">Login</a>
+          <a href="#login" class="text-sm hover:underline" id="signin">Sign in</a>
           <a href="#signup" class="text-sm hover:underline" id="nav-signup">Sign up</a>
-          <button id="nav-logout" class="hidden text-sm px-3 py-1 rounded-lg border hover:bg-gray-100">Logout</button>
+          <button id="signout" class="hidden text-sm px-3 py-1 rounded-lg border hover:bg-gray-100">Signout</button>
         </nav>
       </div>
     </header>
@@ -135,9 +135,9 @@
       login: document.getElementById('page-login'),
       signup: document.getElementById('page-signup'),
     };
-    const navLogin = document.getElementById('nav-login');
+    const navLogin = document.getElementById('signin');
     const navSignup = document.getElementById('nav-signup');
-    const navLogout = document.getElementById('nav-logout');
+    const navLogout = document.getElementById('signout');
     const homeUsername = document.getElementById('home-username');
     const homeCta = document.getElementById('home-cta');
 
@@ -242,7 +242,7 @@
     });
 
     // Logout
-    document.getElementById('nav-logout')?.addEventListener('click', async () => {
+    document.getElementById('signout')?.addEventListener('click', async () => {
       await signOut();
       location.hash = '#home';
     });
@@ -255,3 +255,4 @@
   </script>
 </body>
 </html>
+
